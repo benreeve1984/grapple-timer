@@ -62,7 +62,7 @@ protocol SpotifyControlProtocol {
 final class SpotifyControl: ObservableObject, SpotifyControlProtocol {
     static let shared = SpotifyControl()
     
-    static let clientID = "YOUR_SPOTIFY_CLIENT_ID"
+    static let clientID = "0450fcbf37fe4d698008fb0e650d2232"
     static let redirectURI = "grappletimer://spotify-callback"
     
     @Published private(set) var isConnected: Bool = false
