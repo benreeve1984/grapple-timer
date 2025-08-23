@@ -54,7 +54,7 @@
 		C114225083DF0F37B6718FAF /* BigTimerDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigTimerDisplay.swift; sourceTree = "<group>"; };
 		C2B90C1501D166B88FDD7E5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C6B6F4E66EF34BFE8A6D7605 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		DA29B2EFE312D59526D53864 /* GrappleTimer.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GrappleTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA29B2EFE312D59526D53864 /* GrappleTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrappleTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE139FB04385A99B91CC5738 /* Horn.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Horn.wav; sourceTree = "<group>"; };
 		E2C53452A2E21B3AE280E98C /* GrappleTimerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GrappleTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE2697C0F1596CC25EE315AF /* Bell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Bell.wav; sourceTree = "<group>"; };
@@ -262,7 +262,6 @@
 						ProvisioningStyle = Automatic;
 					};
 					E0542182DFA037C739886DBF = {
-						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -277,6 +276,9 @@
 			);
 			mainGroup = 98DC0E7B4219EAB9F9F60B87;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4BE3D7752E5A7BF400793CE4 /* XCRemoteSwiftPackageReference "ios-sdk" */,
+			);
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -530,6 +532,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 5CVYV4ENJX;
 				INFOPLIST_FILE = GrappleTimer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -548,6 +551,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 5CVYV4ENJX;
 				INFOPLIST_FILE = GrappleTimer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -592,6 +596,17 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4BE3D7752E5A7BF400793CE4 /* XCRemoteSwiftPackageReference "ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/spotify/ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = B5E220E969C127B39787DFE2 /* Project object */;
 }

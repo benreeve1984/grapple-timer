@@ -133,6 +133,10 @@ final class SpotifyControl: ObservableObject, SpotifyControlProtocol {
         }
         
         switch mode {
+        case .noMusic:
+            // Do nothing for no music mode
+            return
+            
         case .useCurrentPlayback:
             try await resumeCurrentPlayback()
             
