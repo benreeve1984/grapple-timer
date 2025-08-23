@@ -294,19 +294,26 @@ struct HomeView: View {
         switch newPhase {
         case .work:
             audioCue.playBell()  // Bell at start of round
-            if configStore.settings.musicMode == .useCurrentPlayback {
+            switch configStore.settings.musicMode {
+            case .noMusic:
+                break  // Do nothing for music
+            case .useCurrentPlayback:
                 try? await spotifyControl.resume()
-            } else if case .usePlaylist(let uri) = configStore.settings.musicMode {
+            case .usePlaylist(let uri):
                 try? await spotifyControl.play(mode: .usePlaylist(uri: uri))
             }
             
         case .rest:
             audioCue.playHorn()  // Horn at end of round
-            try? await spotifyControl.pause()
+            if configStore.settings.musicMode != .noMusic {
+                try? await spotifyControl.pause()
+            }
             
         case .done:
             audioCue.playHorn()
-            try? await spotifyControl.pause()
+            if configStore.settings.musicMode != .noMusic {
+                try? await spotifyControl.pause()
+            }
             
         case .starting:
             audioCue.playStartCountdown()
@@ -335,6 +342,7 @@ struct SettingsView: View {
                 
                 Section("Music") {
                     Picker("Music Mode", selection: $configStore.settings.musicMode) {
+                        Text("No Music").tag(MusicMode.noMusic)
                         Text("Current Playback").tag(MusicMode.useCurrentPlayback)
                         Text("Custom Playlist").tag(MusicMode.usePlaylist(uri: configStore.settings.playlistURI))
                     }

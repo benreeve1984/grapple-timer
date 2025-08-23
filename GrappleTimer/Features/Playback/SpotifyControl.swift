@@ -3,11 +3,14 @@ import Combine
 import UIKit
 
 enum MusicMode: Codable, Equatable, Hashable {
+    case noMusic
     case useCurrentPlayback
     case usePlaylist(uri: String)
     
     var displayName: String {
         switch self {
+        case .noMusic:
+            return "No Music"
         case .useCurrentPlayback:
             return "Current Playback"
         case .usePlaylist:
