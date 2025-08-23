@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 struct SessionView: View {
     @ObservedObject var timerEngine: TimerEngine
@@ -20,12 +21,12 @@ struct SessionView: View {
         guard let session = timerEngine.session else { return 0 }
         
         switch timerEngine.phase {
-        case .work(let round, _):
+        case .work(_, _):
             let totalTime = session.configuration.roundDuration
             let remaining = timerEngine.timeRemaining
             return 1.0 - (remaining / totalTime)
             
-        case .rest(let round, _):
+        case .rest(_, _):
             let totalTime = session.configuration.restDuration
             let remaining = timerEngine.timeRemaining
             return 1.0 - (remaining / totalTime)
@@ -98,7 +99,7 @@ struct SessionView: View {
                         Text("Round \(round) of \(total)")
                             .font(.headline)
                             .foregroundColor(.secondary)
-                    } else if case .rest(let round, let total) = timerEngine.phase {
+                    } else if case .rest(let round, _) = timerEngine.phase {
                         Text("Rest after round \(round)")
                             .font(.headline)
                             .foregroundColor(.secondary)
@@ -116,6 +117,16 @@ struct SessionView: View {
     @ViewBuilder
     private func landscapeLayout(geometry: GeometryProxy) -> some View {
         ZStack {
+            // Progress ring first (background layer)
+            ProgressRing(
+                progress: progress,
+                phase: timerEngine.phase,
+                lineWidth: 4
+            )
+            .opacity(0.3)
+            .padding(40)
+            
+            // Timer display (middle layer)
             BigTimerDisplay(
                 time: timerEngine.timeRemaining,
                 showTenths: configStore.settings.showTenths,
@@ -124,9 +135,12 @@ struct SessionView: View {
             .frame(width: geometry.size.width * 0.9,
                    height: geometry.size.height * 0.85)
             
+            // Controls (top layer)
             VStack {
                 HStack {
-                    Button(action: { dismiss() }) {
+                    Button(action: { 
+                stopSession()
+            }) {
                         Image(systemName: "xmark.circle.fill")
                             .font(.title2)
                             .foregroundColor(.white.opacity(0.6))
@@ -157,38 +171,53 @@ struct SessionView: View {
                         Button(action: { timerEngine.resume() }) {
                             Image(systemName: "play.circle.fill")
                                 .font(.system(size: 44))
-                                .foregroundColor(.white.opacity(0.8))
+                                .foregroundColor(.green)
                         }
+                        .background(
+                            Circle()
+                                .fill(Color.black.opacity(0.8))
+                                .frame(width: 60, height: 60)
+                        )
                     } else if timerEngine.phase.isActive {
                         Button(action: { timerEngine.pause() }) {
                             Image(systemName: "pause.circle.fill")
                                 .font(.system(size: 44))
-                                .foregroundColor(.white.opacity(0.8))
+                                .foregroundColor(.orange)
                         }
+                        .background(
+                            Circle()
+                                .fill(Color.black.opacity(0.8))
+                                .frame(width: 60, height: 60)
+                        )
                     }
                     
                     Button(action: { stopSession() }) {
                         Image(systemName: "stop.circle.fill")
                             .font(.system(size: 44))
-                            .foregroundColor(.red.opacity(0.8))
+                            .foregroundColor(.red)
                     }
+                    .background(
+                        Circle()
+                            .fill(Color.black.opacity(0.8))
+                            .frame(width: 60, height: 60)
+                    )
                 }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.black.opacity(0.7))
+                        .blur(radius: 10)
+                )
                 .padding(.bottom, 20)
             }
-            
-            ProgressRing(
-                progress: progress,
-                phase: timerEngine.phase,
-                lineWidth: 4
-            )
-            .opacity(0.3)
-            .padding(40)
         }
     }
     
     private var topBar: some View {
         HStack {
-            Button(action: { dismiss() }) {
+            Button(action: { 
+                stopSession()
+            }) {
                 Image(systemName: "xmark")
                     .font(.title2)
                     .foregroundColor(.white)
@@ -288,6 +317,15 @@ struct SessionView: View {
     
     private func stopSession() {
         timerEngine.stop()
+        
+        // Clean up resources
+        UIApplication.shared.isIdleTimerDisabled = false
+        AudioCue.shared.endSession()
+        
+        Task {
+            await NotificationScheduler.shared.clearAllNotifications()
+        }
+        
         dismiss()
     }
 }

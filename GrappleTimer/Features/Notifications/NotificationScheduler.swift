@@ -36,7 +36,7 @@ final class NotificationScheduler: ObservableObject {
     }
     
     func scheduleSessionNotifications(for session: TimerSession) async {
-        guard isAuthorized else {
+        if !isAuthorized {
             _ = await requestAuthorization()
             guard isAuthorized else { return }
         }
@@ -44,8 +44,7 @@ final class NotificationScheduler: ObservableObject {
         await clearAllNotifications()
         
         var notifications: [UNNotificationRequest] = []
-        let startTime = session.startTime
-        var currentTime = session.configuration.startDelay
+        var currentTime = max(session.configuration.startDelay, 0.1)
         
         for round in 1...session.configuration.rounds {
             let workContent = UNMutableNotificationContent()
@@ -55,7 +54,7 @@ final class NotificationScheduler: ObservableObject {
             workContent.categoryIdentifier = "TIMER_PHASE"
             
             let workTrigger = UNTimeIntervalNotificationTrigger(
-                timeInterval: currentTime,
+                timeInterval: max(currentTime, 0.1),
                 repeats: false
             )
             
@@ -79,7 +78,7 @@ final class NotificationScheduler: ObservableObject {
                 restContent.categoryIdentifier = "TIMER_PHASE"
                 
                 let restTrigger = UNTimeIntervalNotificationTrigger(
-                    timeInterval: currentTime,
+                    timeInterval: max(currentTime, 0.1),
                     repeats: false
                 )
                 

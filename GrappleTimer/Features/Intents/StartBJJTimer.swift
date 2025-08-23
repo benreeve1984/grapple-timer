@@ -73,7 +73,7 @@ struct StartBJJTimer: AppIntent {
     @MainActor
     func perform() async throws -> some IntentResult & ProvidesDialog & OpensIntent {
         let configStore = ConfigStore.shared
-        let timerEngine = TimerEngine()
+        let appCoordinator = AppCoordinator.shared
         
         guard roundSeconds > 0, restSeconds > 0, rounds > 0 else {
             throw IntentError.invalidInput
@@ -104,6 +104,9 @@ struct StartBJJTimer: AppIntent {
             startDelay: configStore.settings.enableStartDelay ? 3 : 0
         )
         
+        // Actually start the timer through the app coordinator
+        appCoordinator.startSessionFromSiri(configuration: configuration)
+        
         let roundMinutes = roundSeconds / 60
         let roundSecondsRemainder = roundSeconds % 60
         let restMinutes = restSeconds / 60
@@ -124,11 +127,11 @@ struct StartBJJTimer: AppIntent {
     }
 }
 
-enum IntentError: Error, CustomLocalizedStringProvider {
+enum IntentError: LocalizedError {
     case invalidInput
     case clapperTooLong
     
-    var localizedStringResource: LocalizedStringResource {
+    var errorDescription: String? {
         switch self {
         case .invalidInput:
             return "Invalid timer settings. Please check your values."

@@ -16,53 +16,33 @@ struct TimerPreset: Codable, Identifiable, Equatable {
     
     static let defaultPresets: [TimerPreset] = [
         TimerPreset(
-            name: "5×5:00/1:00",
+            name: "10×5:00/1:00",
             configuration: TimerConfiguration(
                 roundDuration: 300,
                 restDuration: 60,
-                rounds: 5,
+                rounds: 10,
                 clapperTime: 10,
                 startDelay: 0
             ),
             isDefault: true
         ),
         TimerPreset(
-            name: "6×5:00/1:00",
-            configuration: TimerConfiguration(
-                roundDuration: 300,
-                restDuration: 60,
-                rounds: 6,
-                clapperTime: 10,
-                startDelay: 0
-            )
-        ),
-        TimerPreset(
-            name: "8×3:00/1:00",
+            name: "15×3:00/1:00",
             configuration: TimerConfiguration(
                 roundDuration: 180,
                 restDuration: 60,
-                rounds: 8,
+                rounds: 15,
                 clapperTime: 10,
                 startDelay: 0
             )
         ),
         TimerPreset(
-            name: "Sparring Ladder",
+            name: "5×10:00/2:00",
             configuration: TimerConfiguration(
-                roundDuration: 360,
-                restDuration: 60,
-                rounds: 4,
-                clapperTime: 15,
-                startDelay: 3
-            )
-        ),
-        TimerPreset(
-            name: "Competition",
-            configuration: TimerConfiguration(
-                roundDuration: 420,
-                restDuration: 30,
-                rounds: 3,
-                clapperTime: 30,
+                roundDuration: 600,
+                restDuration: 120,
+                rounds: 5,
+                clapperTime: 10,
                 startDelay: 0
             )
         )
@@ -73,8 +53,8 @@ struct AppSettings: Codable {
     var keepScreenAwake: Bool = true
     var showTenths: Bool = false
     var enableStartDelay: Bool = false
-    var musicMode: MusicMode = .useCurrentPlayback
-    var playlistURI: String = ""
+    var musicMode: MusicMode = .usePlaylist(uri: "spotify:playlist:2P2oppRNcZgcyyhW2dhS9k")
+    var playlistURI: String = "spotify:playlist:2P2oppRNcZgcyyhW2dhS9k"
     var lastUsedConfiguration: TimerConfiguration = .default
 }
 
@@ -117,6 +97,13 @@ final class ConfigStore: ObservableObject {
             self.currentConfiguration = .default
         }
         
+        if let data = userDefaults.data(forKey: Keys.settings),
+           let savedSettings = try? JSONDecoder().decode(AppSettings.self, from: data) {
+            self.settings = savedSettings
+        } else {
+            self.settings = AppSettings()
+        }
+        
         if let data = userDefaults.data(forKey: Keys.presets),
            let savedPresets = try? JSONDecoder().decode([TimerPreset].self, from: data) {
             self.presets = savedPresets
@@ -126,13 +113,6 @@ final class ConfigStore: ObservableObject {
                 savePresets()
                 userDefaults.set(true, forKey: Keys.hasLaunched)
             }
-        }
-        
-        if let data = userDefaults.data(forKey: Keys.settings),
-           let savedSettings = try? JSONDecoder().decode(AppSettings.self, from: data) {
-            self.settings = savedSettings
-        } else {
-            self.settings = AppSettings()
         }
     }
     

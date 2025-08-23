@@ -1,0 +1,597 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 63;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02967A629561BDE891A14BE2 /* Bell.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3676706FFB29FDE0FF809D07 /* Bell.mp3 */; };
+		1E784D3B31134E8A4B27E2B0 /* SpotifyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEA176EEE7369AF560D262 /* SpotifyControl.swift */; };
+		22467614045647C5EC791759 /* BigTimerDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C114225083DF0F37B6718FAF /* BigTimerDisplay.swift */; };
+		2A2EA5086527FDA8D9509E64 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D58394B9447698236732F4 /* TimerEngine.swift */; };
+		3BEADF03076831C9E1C48905 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE151690AD3C0FB882C95CF /* HomeView.swift */; };
+		469B6D74D6A9DD423D29E99D /* ControlRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7366E77871E9613EFFFD2F12 /* ControlRow.swift */; };
+		49828C1769E461FA38F30F31 /* TimerEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B747ED5F3819F629651DEE3 /* TimerEngineTests.swift */; };
+		4AD53BE5F34A8ACB9A9CF825 /* Bell.wav in Resources */ = {isa = PBXBuildFile; fileRef = EE2697C0F1596CC25EE315AF /* Bell.wav */; };
+		582B8BDC1BF1569BABE1D13B /* Clackers.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225190464A1728F1745F79F3 /* Clackers.wav */; };
+		6B9A3979624155B25A344E0B /* AudioCue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310CCED48443F3FA5AD3F344 /* AudioCue.swift */; };
+		988E7AAF32C374122BBDB166 /* ConfigStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADA46D892D255F3357F4E73 /* ConfigStore.swift */; };
+		998208C888F98E5978F45AFE /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B6F4E66EF34BFE8A6D7605 /* AppCoordinator.swift */; };
+		B1D854AFD4661465FBF51F66 /* Horn.wav in Resources */ = {isa = PBXBuildFile; fileRef = DE139FB04385A99B91CC5738 /* Horn.wav */; };
+		B4F8F073112F9E6FE8599FAB /* SessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53404CDFF511FDAFDC4478B8 /* SessionView.swift */; };
+		DC4BEE64F99351B4244A1963 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2B90C1501D166B88FDD7E5F /* Assets.xcassets */; };
+		ECC848F6AC30AB7EF1431F3E /* StartBJJTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7FF54AC2B0C882A1CDAFD4 /* StartBJJTimer.swift */; };
+		ED2C63A854B02E7114A7729A /* GrappleTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5D8ABD59ED2A1B3EED4921 /* GrappleTimerApp.swift */; };
+		FF8EB72F4DEE7CA6E8C0C0F1 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64D6B113CA0805D7AA0EECB /* NotificationScheduler.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FDDDF8BBF2EF61FA5EE68491 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B5E220E969C127B39787DFE2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E0542182DFA037C739886DBF;
+			remoteInfo = GrappleTimer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0C5D8ABD59ED2A1B3EED4921 /* GrappleTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrappleTimerApp.swift; sourceTree = "<group>"; };
+		225190464A1728F1745F79F3 /* Clackers.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Clackers.wav; sourceTree = "<group>"; };
+		310CCED48443F3FA5AD3F344 /* AudioCue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCue.swift; sourceTree = "<group>"; };
+		3676706FFB29FDE0FF809D07 /* Bell.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Bell.mp3; sourceTree = "<group>"; };
+		4803D120D562EB5149FF3367 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4ADA46D892D255F3357F4E73 /* ConfigStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigStore.swift; sourceTree = "<group>"; };
+		53404CDFF511FDAFDC4478B8 /* SessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionView.swift; sourceTree = "<group>"; };
+		6B747ED5F3819F629651DEE3 /* TimerEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineTests.swift; sourceTree = "<group>"; };
+		7366E77871E9613EFFFD2F12 /* ControlRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlRow.swift; sourceTree = "<group>"; };
+		84DEA176EEE7369AF560D262 /* SpotifyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyControl.swift; sourceTree = "<group>"; };
+		8AE151690AD3C0FB882C95CF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		A64D6B113CA0805D7AA0EECB /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
+		B8D58394B9447698236732F4 /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
+		C114225083DF0F37B6718FAF /* BigTimerDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigTimerDisplay.swift; sourceTree = "<group>"; };
+		C2B90C1501D166B88FDD7E5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C6B6F4E66EF34BFE8A6D7605 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		DA29B2EFE312D59526D53864 /* GrappleTimer.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GrappleTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE139FB04385A99B91CC5738 /* Horn.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Horn.wav; sourceTree = "<group>"; };
+		E2C53452A2E21B3AE280E98C /* GrappleTimerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GrappleTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE2697C0F1596CC25EE315AF /* Bell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Bell.wav; sourceTree = "<group>"; };
+		FF7FF54AC2B0C882A1CDAFD4 /* StartBJJTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartBJJTimer.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		02059C2AF1F67F6813D77C20 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				310CCED48443F3FA5AD3F344 /* AudioCue.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		0E833DADC0F29B0362CB3717 /* Playback */ = {
+			isa = PBXGroup;
+			children = (
+				84DEA176EEE7369AF560D262 /* SpotifyControl.swift */,
+			);
+			path = Playback;
+			sourceTree = "<group>";
+		};
+		10B6460922B850B8CE3DDE4D /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				02059C2AF1F67F6813D77C20 /* Audio */,
+				578D86D1DF025DB0062C9727 /* Intents */,
+				79675BA0889EA77F23F0218F /* Notifications */,
+				0E833DADC0F29B0362CB3717 /* Playback */,
+				DF4253720AC86376D15862FD /* Timer */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		216D8C2734FABB542F0FBA37 /* GrappleTimer */ = {
+			isa = PBXGroup;
+			children = (
+				4803D120D562EB5149FF3367 /* Info.plist */,
+				455D7349BBD37620AE17E469 /* App */,
+				10B6460922B850B8CE3DDE4D /* Features */,
+				57DF15A8DFA6A0D6120331CA /* Persistence */,
+				F7F5CA2F8C7E15EC843E9713 /* Resources */,
+				7A89E8AAA285ADDD55F0A543 /* UI */,
+			);
+			path = GrappleTimer;
+			sourceTree = "<group>";
+		};
+		455D7349BBD37620AE17E469 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C6B6F4E66EF34BFE8A6D7605 /* AppCoordinator.swift */,
+				0C5D8ABD59ED2A1B3EED4921 /* GrappleTimerApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		48692D310CA55018FA7A3795 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C114225083DF0F37B6718FAF /* BigTimerDisplay.swift */,
+				7366E77871E9613EFFFD2F12 /* ControlRow.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		578D86D1DF025DB0062C9727 /* Intents */ = {
+			isa = PBXGroup;
+			children = (
+				FF7FF54AC2B0C882A1CDAFD4 /* StartBJJTimer.swift */,
+			);
+			path = Intents;
+			sourceTree = "<group>";
+		};
+		57DF15A8DFA6A0D6120331CA /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				4ADA46D892D255F3357F4E73 /* ConfigStore.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		79675BA0889EA77F23F0218F /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				A64D6B113CA0805D7AA0EECB /* NotificationScheduler.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		7A89E8AAA285ADDD55F0A543 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				48692D310CA55018FA7A3795 /* Components */,
+				BBE9B68B3354E649BD9CF3C1 /* Screens */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		91F9AA5F92F6FB5AD49DC9A5 /* GrappleTimerTests */ = {
+			isa = PBXGroup;
+			children = (
+				6B747ED5F3819F629651DEE3 /* TimerEngineTests.swift */,
+			);
+			path = GrappleTimerTests;
+			sourceTree = "<group>";
+		};
+		98DC0E7B4219EAB9F9F60B87 = {
+			isa = PBXGroup;
+			children = (
+				216D8C2734FABB542F0FBA37 /* GrappleTimer */,
+				91F9AA5F92F6FB5AD49DC9A5 /* GrappleTimerTests */,
+				D5F473D7CBCC38A356C465AA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BBE9B68B3354E649BD9CF3C1 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				8AE151690AD3C0FB882C95CF /* HomeView.swift */,
+				53404CDFF511FDAFDC4478B8 /* SessionView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		D5F473D7CBCC38A356C465AA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DA29B2EFE312D59526D53864 /* GrappleTimer.app */,
+				E2C53452A2E21B3AE280E98C /* GrappleTimerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DF4253720AC86376D15862FD /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				B8D58394B9447698236732F4 /* TimerEngine.swift */,
+			);
+			path = Timer;
+			sourceTree = "<group>";
+		};
+		F7F5CA2F8C7E15EC843E9713 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C2B90C1501D166B88FDD7E5F /* Assets.xcassets */,
+				3676706FFB29FDE0FF809D07 /* Bell.mp3 */,
+				EE2697C0F1596CC25EE315AF /* Bell.wav */,
+				225190464A1728F1745F79F3 /* Clackers.wav */,
+				DE139FB04385A99B91CC5738 /* Horn.wav */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6585856E487FCD3CE8A29ADA /* GrappleTimerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2B32BCA601CC71AD7B9ED7E8 /* Build configuration list for PBXNativeTarget "GrappleTimerTests" */;
+			buildPhases = (
+				8876FFC57CDD0503AAD4AED3 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FC0412145F36AD2FC68EBA7D /* PBXTargetDependency */,
+			);
+			name = GrappleTimerTests;
+			packageProductDependencies = (
+			);
+			productName = GrappleTimerTests;
+			productReference = E2C53452A2E21B3AE280E98C /* GrappleTimerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E0542182DFA037C739886DBF /* GrappleTimer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 170D9E94B0E5EC5EB6B339BB /* Build configuration list for PBXNativeTarget "GrappleTimer" */;
+			buildPhases = (
+				119272FA8BA5E0C5ACE190FE /* Sources */,
+				B09E1E71D9F5BFA5D56864E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GrappleTimer;
+			packageProductDependencies = (
+			);
+			productName = GrappleTimer;
+			productReference = DA29B2EFE312D59526D53864 /* GrappleTimer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B5E220E969C127B39787DFE2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					6585856E487FCD3CE8A29ADA = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					E0542182DFA037C739886DBF = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = D22AD56EACFDB32A15E7B958 /* Build configuration list for PBXProject "GrappleTimer" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 98DC0E7B4219EAB9F9F60B87;
+			minimizedProjectReferenceProxies = 1;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E0542182DFA037C739886DBF /* GrappleTimer */,
+				6585856E487FCD3CE8A29ADA /* GrappleTimerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B09E1E71D9F5BFA5D56864E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC4BEE64F99351B4244A1963 /* Assets.xcassets in Resources */,
+				02967A629561BDE891A14BE2 /* Bell.mp3 in Resources */,
+				4AD53BE5F34A8ACB9A9CF825 /* Bell.wav in Resources */,
+				582B8BDC1BF1569BABE1D13B /* Clackers.wav in Resources */,
+				B1D854AFD4661465FBF51F66 /* Horn.wav in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		119272FA8BA5E0C5ACE190FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				998208C888F98E5978F45AFE /* AppCoordinator.swift in Sources */,
+				6B9A3979624155B25A344E0B /* AudioCue.swift in Sources */,
+				22467614045647C5EC791759 /* BigTimerDisplay.swift in Sources */,
+				988E7AAF32C374122BBDB166 /* ConfigStore.swift in Sources */,
+				469B6D74D6A9DD423D29E99D /* ControlRow.swift in Sources */,
+				ED2C63A854B02E7114A7729A /* GrappleTimerApp.swift in Sources */,
+				3BEADF03076831C9E1C48905 /* HomeView.swift in Sources */,
+				FF8EB72F4DEE7CA6E8C0C0F1 /* NotificationScheduler.swift in Sources */,
+				B4F8F073112F9E6FE8599FAB /* SessionView.swift in Sources */,
+				1E784D3B31134E8A4B27E2B0 /* SpotifyControl.swift in Sources */,
+				ECC848F6AC30AB7EF1431F3E /* StartBJJTimer.swift in Sources */,
+				2A2EA5086527FDA8D9509E64 /* TimerEngine.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8876FFC57CDD0503AAD4AED3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49828C1769E461FA38F30F31 /* TimerEngineTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FC0412145F36AD2FC68EBA7D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E0542182DFA037C739886DBF /* GrappleTimer */;
+			targetProxy = FDDDF8BBF2EF61FA5EE68491 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0937A0355A63B04001C08FA5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Grapple Timer";
+				INFOPLIST_KEY_LSApplicationQueriesSchemes = spotify;
+				INFOPLIST_KEY_NSUserActivityTypes = StartBJJTimerIntent;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIBackgroundModes = audio;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				"INFOPLIST_KEY_UISupportedInterfaceOrientations~ipad" = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.GrappleTimer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		23415872CC92C124978D1878 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GrappleTimer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GrappleTimer";
+			};
+			name = Debug;
+		};
+		738F70DDBDA64DD4730783C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GrappleTimer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GrappleTimer";
+			};
+			name = Release;
+		};
+		848AA1C5A9BA9954512D86FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Grapple Timer";
+				INFOPLIST_KEY_LSApplicationQueriesSchemes = spotify;
+				INFOPLIST_KEY_NSUserActivityTypes = StartBJJTimerIntent;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIBackgroundModes = audio;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				"INFOPLIST_KEY_UISupportedInterfaceOrientations~ipad" = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.GrappleTimer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		D3077CCFFD8440DFDDE4277B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = GrappleTimer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_NAME = GrappleTimer;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E8352EFFCECD506EC049326D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = GrappleTimer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_NAME = GrappleTimer;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		170D9E94B0E5EC5EB6B339BB /* Build configuration list for PBXNativeTarget "GrappleTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3077CCFFD8440DFDDE4277B /* Debug */,
+				E8352EFFCECD506EC049326D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		2B32BCA601CC71AD7B9ED7E8 /* Build configuration list for PBXNativeTarget "GrappleTimerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23415872CC92C124978D1878 /* Debug */,
+				738F70DDBDA64DD4730783C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D22AD56EACFDB32A15E7B958 /* Build configuration list for PBXProject "GrappleTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0937A0355A63B04001C08FA5 /* Debug */,
+				848AA1C5A9BA9954512D86FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B5E220E969C127B39787DFE2 /* Project object */;
+}

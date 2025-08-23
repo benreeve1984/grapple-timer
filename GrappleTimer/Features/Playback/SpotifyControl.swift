@@ -1,7 +1,8 @@
 import Foundation
 import Combine
+import UIKit
 
-enum MusicMode: Codable, Equatable {
+enum MusicMode: Codable, Equatable, Hashable {
     case useCurrentPlayback
     case usePlaylist(uri: String)
     
@@ -41,6 +42,7 @@ enum SpotifyError: LocalizedError {
     }
 }
 
+@MainActor
 protocol SpotifyControlProtocol {
     var isConnected: Bool { get }
     var isPremium: Bool { get }
@@ -116,7 +118,7 @@ final class SpotifyControl: ObservableObject, SpotifyControlProtocol {
     }
     
     func play(mode: MusicMode) async throws {
-        guard isConnected else {
+        if !isConnected {
             try await connect()
         }
         
@@ -162,7 +164,7 @@ final class SpotifyControl: ObservableObject, SpotifyControlProtocol {
     }
     
     func resume() async throws {
-        guard isConnected else {
+        if !isConnected {
             try await connect()
         }
         
@@ -220,8 +222,6 @@ extension SpotifyControl {
         return true
     }
 }
-
-import UIKit
 
 extension UIApplication {
     static var spotifyAvailable: Bool {

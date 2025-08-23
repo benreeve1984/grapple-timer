@@ -6,19 +6,21 @@ A minimalist iPhone BJJ (Brazilian Jiu-Jitsu) round timer with Siri integration 
 
 - **Big-Screen Timer**: Massive countdown display that scales to fill the screen, especially in landscape mode
 - **Siri Integration**: Start timers hands-free with natural language commands
-- **Spotify Control**: Automatically play music during rounds, pause during rest
-- **Smart Clapper**: Audio and haptic alerts before round ends
+- **Spotify Control**: Automatically play music during rounds, pause during rest (defaults to curated BJJ playlist)
+- **Smart Audio Cues**: Bell sound at round start, horn at round end, clapper warning before time
 - **Background Notifications**: Get alerts even when the app is backgrounded
-- **Presets**: Quick access to common training configurations
-- **Landscape Mode**: Near full-screen timer display with minimal controls
+- **Training Presets**: Three optimized configurations for different training styles
+- **Landscape Mode**: Near full-screen timer display with opaque control buttons
+- **Orientation-Aware UI**: Presets hidden in landscape for maximum timer visibility
 
 ## Setup Instructions
 
 ### 1. Open the Project
 
 1. Open `GrappleTimer.xcodeproj` in Xcode 15 or later
-2. Select your development team in the project settings
+2. Select your development team in the project settings (Signing & Capabilities)
 3. Update the bundle identifier if needed (default: `com.yourcompany.GrappleTimer`)
+4. If project files are missing, run `xcodegen generate` to regenerate from `project.yml`
 
 ### 2. Configure Spotify Integration
 
@@ -93,21 +95,31 @@ To test both behaviors:
 
 ### Quick Start
 1. Launch the app
-2. Select a preset or adjust round/rest times
-3. Tap "START SESSION"
-4. Music plays during rounds, pauses during rest
+2. Choose from three presets:
+   - **10×5:00/1:00**: 10 rounds, 5 min work, 1 min rest (default)
+   - **15×3:00/1:00**: 15 rounds, 3 min work, 1 min rest
+   - **5×10:00/2:00**: 5 rounds, 10 min work, 2 min rest
+3. Or adjust custom round/rest times
+4. Tap "START SESSION"
+5. Bell rings at round start, horn at round end
 
 ### During Session
 - **Portrait**: Large countdown with progress ring, phase indicator, round counter
-- **Landscape**: Near full-screen timer (85-90% of screen), minimal controls
-- **Clapper**: Haptic + sound alert X seconds before round ends
+- **Landscape**: Near full-screen timer (85-90% of screen), opaque control buttons
+- **Audio Cues**: 
+  - Bell sound at start of each round
+  - Horn sound at end of each round (start of rest)
+  - Clapper warning before round ends
+- **Controls**: Pause/Resume and Stop buttons always accessible
+- **Exit**: X button stops timer and returns to home
 - **Background**: Local notifications fire at phase transitions
 
 ### Settings
 - **Keep Screen Awake**: Prevents auto-lock during sessions
 - **Show Tenths**: Display fractional seconds when under 1 minute
 - **Start Delay**: Optional 3-second countdown before first round
-- **Music Mode**: Choose current playback or specific playlist
+- **Music Mode**: Defaults to curated BJJ Spotify playlist
+  - Playlist: https://open.spotify.com/playlist/2P2oppRNcZgcyyhW2dhS9k
 
 ## Architecture
 
@@ -163,39 +175,50 @@ To test both behaviors:
 ## Manual Test Script
 
 1. **Fresh Install**
-   - Launch app → Defaults shown (5:00/1:00, 5 rounds, 10s clapper)
+   - Launch app → Shows 3 presets, default timer (10×5:00/1:00)
    - Start button enabled
 
-2. **Orientation**
-   - Rotate to landscape before starting → Timer scales to ~90% of screen
-   - Rotate back to portrait → Clean layout maintained
+2. **Presets**
+   - Tap preset → Timer configuration updates
+   - Three presets available:
+     - 10×5:00/1:00 (default)
+     - 15×3:00/1:00
+     - 5×10:00/2:00
 
-3. **Spotify Integration**
-   - With Spotify installed/logged in → Music plays during WORK, pauses during REST
+3. **Orientation**
+   - Portrait → Shows presets + controls
+   - Landscape → Hides presets, maximizes timer space
+   - During session landscape → Opaque button backgrounds, no bleed-through
 
-4. **Playlist Selection**
-   - Premium: Paste playlist URI → Starts playlist on WORK
-   - Free: Shows friendly message, resumes current playback
+4. **Audio Cues**
+   - Round start → Bell sound
+   - Round end → Horn sound
+   - Near round end → Clapper sound
+   - All cues include haptic feedback
 
-5. **Clapper Test**
-   - Set 30s round, 10s clapper → Clapper at T=20s, transition at T=30s
+5. **Session Controls**
+   - Pause/Resume → Works correctly
+   - Stop → Ends session
+   - X button → Stops timer and exits
 
-6. **Background**
-   - Lock during session → Unlock shows correct remaining time
-   - Notifications fire at phase boundaries while locked
+6. **Spotify Integration**
+   - Default playlist loads automatically
+   - Music plays during WORK, pauses during REST
+   - Premium: Uses BJJ playlist
+   - Free: Falls back to current playback
 
-7. **Siri Test**
-   - Say "Start BJJ timer in Grapple Timer — 5-minute rounds, 1-minute rest, 6 rounds, clapper at 10 seconds"
-   - App launches into active session with those parameters
+7. **Background**
+   - Lock during session → Notifications at phase changes
+   - Unlock → Shows correct remaining time
 
-8. **Edge Cases**
-   - Clapper > round duration → Rejected with guidance
+8. **Siri Test**
+   - Say "Start BJJ timer in Grapple Timer"
+   - App launches and starts timer with current config
+
+9. **Edge Cases**
+   - Zero/negative time intervals → Handled gracefully
    - Rapid start/pause/resume → No crashes
-
-9. **Accessibility**
-   - Dynamic Type → Labels scale appropriately
-   - VoiceOver → Reads phase and time
-   - Contrast → Passes WCAG AA
+   - Clapper > round duration → Shows error
 
 ## Support
 

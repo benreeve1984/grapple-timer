@@ -3,7 +3,7 @@ import AppIntents
 
 @main
 struct GrappleTimerApp: App {
-    @StateObject private var appCoordinator = AppCoordinator()
+    @StateObject private var appCoordinator = AppCoordinator.shared
     
     init() {
         GrappleTimerShortcuts.updateAppShortcutParameters()

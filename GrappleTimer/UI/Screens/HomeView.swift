@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 struct HomeView: View {
     @StateObject private var timerEngine = TimerEngine()
@@ -10,6 +11,7 @@ struct HomeView: View {
     @State private var showingSession = false
     @State private var showingSettings = false
     @State private var errorMessage: String?
+    @State private var isLandscape = UIDevice.current.orientation.isLandscape
     
     @State private var roundMinutes: Int = 5
     @State private var roundSeconds: Int = 0
@@ -30,7 +32,9 @@ struct HomeView: View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 20) {
-                    presetsSection
+                    if !isLandscape {
+                        presetsSection
+                    }
                     
                     controlsSection
                     
@@ -64,6 +68,11 @@ struct HomeView: View {
         .onAppear {
             loadConfiguration()
             setupTimerCallbacks()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+            withAnimation {
+                isLandscape = UIDevice.current.orientation.isLandscape
+            }
         }
     }
     
@@ -197,7 +206,7 @@ struct HomeView: View {
     private var musicSection: some View {
         VStack(spacing: 12) {
             HStack {
-                Image(systemName: spotifyControl.isConnected ? "music.note.circle.fill" : "music.note.circle")
+                Image(systemName: spotifyControl.isConnected ? "music.note" : "music.note")
                     .foregroundColor(spotifyControl.isConnected ? .green : .secondary)
                 
                 Text(spotifyControl.isConnected ? "Spotify Connected" : "Spotify Not Connected")
@@ -284,7 +293,7 @@ struct HomeView: View {
     private func handlePhaseChange(from oldPhase: Phase, to newPhase: Phase) async {
         switch newPhase {
         case .work:
-            audioCue.playHorn()
+            audioCue.playBell()  // Bell at start of round
             if configStore.settings.musicMode == .useCurrentPlayback {
                 try? await spotifyControl.resume()
             } else if case .usePlaylist(let uri) = configStore.settings.musicMode {
@@ -292,7 +301,7 @@ struct HomeView: View {
             }
             
         case .rest:
-            audioCue.playHorn()
+            audioCue.playHorn()  // Horn at end of round
             try? await spotifyControl.pause()
             
         case .done:

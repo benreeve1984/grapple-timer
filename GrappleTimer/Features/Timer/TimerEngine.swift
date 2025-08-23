@@ -91,8 +91,6 @@ struct TimerSession: Equatable {
         }
         
         let cycleTime = configuration.roundDuration + configuration.restDuration
-        var currentRound = 1
-        var timeInCycle = adjustedElapsed
         
         for round in 1...configuration.rounds {
             let cycleStart = Double(round - 1) * cycleTime

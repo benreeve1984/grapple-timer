@@ -10,6 +10,7 @@ final class AudioCue: ObservableObject {
     private var audioPlayer: AVAudioPlayer?
     private var clapperPlayer: AVAudioPlayer?
     private var hornPlayer: AVAudioPlayer?
+    private var bellPlayer: AVAudioPlayer?
     private var hapticEngine: CHHapticEngine?
     private var audioSession: AVAudioSession?
     
@@ -25,7 +26,7 @@ final class AudioCue: ObservableObject {
         audioSession = AVAudioSession.sharedInstance()
         
         do {
-            try audioSession?.setCategory(.ambient, mode: .default, options: [.mixWithOthers, .duckOthers])
+            try audioSession?.setCategory(.playback, mode: .default, options: [.mixWithOthers, .duckOthers])
             try audioSession?.setActive(true)
         } catch {
             print("Failed to setup audio session: \(error)")
@@ -83,6 +84,16 @@ final class AudioCue: ObservableObject {
                 print("Failed to load horn sound: \(error)")
             }
         }
+        
+        if let bellURL = Bundle.main.url(forResource: "Bell", withExtension: "wav") {
+            do {
+                bellPlayer = try AVAudioPlayer(contentsOf: bellURL)
+                bellPlayer?.prepareToPlay()
+                bellPlayer?.volume = 0.8
+            } catch {
+                print("Failed to load bell sound: \(error)")
+            }
+        }
     }
     
     func playClapper() {
@@ -93,6 +104,11 @@ final class AudioCue: ObservableObject {
     func playHorn() {
         hornPlayer?.play()
         triggerHaptic(intensity: 1.0, sharpness: 1.0, duration: 0.5)
+    }
+    
+    func playBell() {
+        bellPlayer?.play()
+        triggerHaptic(intensity: 0.7, sharpness: 0.8, duration: 0.3)
     }
     
     func playPhaseTransition() {
@@ -140,7 +156,7 @@ final class AudioCue: ObservableObject {
     
     func endSession() {
         do {
-            try audioSession?.setActive(false)
+            try audioSession?.setActive(false, options: .notifyOthersOnDeactivation)
             hapticEngine?.stop()
         } catch {
             print("Failed to end audio/haptic session: \(error)")
@@ -181,7 +197,7 @@ final class AudioSessionManager: ObservableObject {
     
     @objc private func handleInterruption(notification: Notification) {
         guard let userInfo = notification.userInfo,
-              let typeValue = userInfo[AVAudioSession.interruptionTypeKey] as? UInt,
+              let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
               let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
             return
         }
@@ -194,7 +210,7 @@ final class AudioSessionManager: ObservableObject {
             }
             
         case .ended:
-            guard let optionsValue = userInfo[AVAudioSession.interruptionOptionKey] as? UInt else {
+            guard let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt else {
                 Task { @MainActor in
                     onInterruptionEnded?(false)
                 }
@@ -202,7 +218,7 @@ final class AudioSessionManager: ObservableObject {
             }
             
             let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
-            let shouldResume = options.contains(.shouldResume)
+            let shouldResume = options.contains(AVAudioSession.InterruptionOptions.shouldResume)
             
             Task { @MainActor in
                 onInterruptionEnded?(shouldResume && wasPlayingBeforeInterruption)
@@ -216,7 +232,7 @@ final class AudioSessionManager: ObservableObject {
     
     @objc private func handleRouteChange(notification: Notification) {
         guard let userInfo = notification.userInfo,
-              let reasonValue = userInfo[AVAudioSession.routeChangeReasonKey] as? UInt,
+              let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
               let reason = AVAudioSession.RouteChangeReason(rawValue: reasonValue) else {
             return
         }

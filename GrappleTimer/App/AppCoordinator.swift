@@ -3,6 +3,8 @@ import Combine
 
 @MainActor
 final class AppCoordinator: ObservableObject {
+    static let shared = AppCoordinator()
+    
     @Published var showingSession = false
     @Published var timerEngine = TimerEngine()
     
@@ -106,7 +108,7 @@ final class AppCoordinator: ObservableObject {
     private func handlePhaseChange(from oldPhase: Phase, to newPhase: Phase) async {
         switch newPhase {
         case .work:
-            audioCue.playHorn()
+            audioCue.playBell()  // Bell at start of round
             if configStore.settings.musicMode == .useCurrentPlayback {
                 try? await spotifyControl.resume()
             } else if case .usePlaylist(let uri) = configStore.settings.musicMode {
@@ -114,7 +116,7 @@ final class AppCoordinator: ObservableObject {
             }
             
         case .rest:
-            audioCue.playHorn()
+            audioCue.playHorn()  // Horn at end of round
             try? await spotifyControl.pause()
             
         case .done:
