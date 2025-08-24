@@ -300,9 +300,11 @@ extension SpotifyControl {
             // Music should only be controlled during timer sessions
             // If music is playing and we're in no music mode, pause it
             appRemote.playerAPI?.getPlayerState { playerState, error in
-                if let state = playerState as? SPTAppRemotePlayerState, !state.isPaused {
-                    // Music is playing, pause it since we just connected
-                    appRemote.playerAPI?.pause(nil)
+                Task { @MainActor in
+                    if let state = playerState as? SPTAppRemotePlayerState, !state.isPaused {
+                        // Music is playing, pause it since we just connected
+                        appRemote.playerAPI?.pause(nil)
+                    }
                 }
             }
         }
@@ -329,7 +331,8 @@ extension SpotifyControl {
             // If we have a token and weren't intentionally disconnected, try to reconnect
             if self.accessToken != nil && error != nil {
                 print("Attempting automatic reconnection...")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                Task { @MainActor in
+                    try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second delay
                     if let token = self.accessToken {
                         self.appRemote?.connectionParameters.accessToken = token
                         self.appRemote?.connect()
