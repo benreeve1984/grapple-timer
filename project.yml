@@ -6,6 +6,11 @@ options:
   createIntermediateGroups: true
   developmentLanguage: en
   xcodeVersion: "15.0"
+
+packages:
+  SpotifyiOS:
+    url: https://github.com/spotify/ios-sdk
+    branch: master
   
 settings:
   base:
@@ -51,7 +56,9 @@ targets:
         TARGETED_DEVICE_FAMILY: "1,2"
         SUPPORTS_MACCATALYST: NO
         SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: YES
-    dependencies: []
+    dependencies:
+      - package: SpotifyiOS
+        product: SpotifyiOS
     preBuildScripts: []
     postBuildScripts: []
 

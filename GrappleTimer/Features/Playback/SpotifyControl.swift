@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 import UIKit
+import SpotifyiOS
 
 enum MusicMode: Codable, Equatable, Hashable {
     case noMusic
@@ -59,7 +60,7 @@ protocol SpotifyControlProtocol {
 }
 
 @MainActor
-final class SpotifyControl: ObservableObject, SpotifyControlProtocol {
+final class SpotifyControl: NSObject, ObservableObject, SpotifyControlProtocol, SPTSessionManagerDelegate, SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate {
     static let shared = SpotifyControl()
     
     static let clientID = "0450fcbf37fe4d698008fb0e650d2232"
@@ -73,23 +74,30 @@ final class SpotifyControl: ObservableObject, SpotifyControlProtocol {
     private var connectionAttempts = 0
     private let maxConnectionAttempts = 3
     
-    private var mockConnection: Bool = false
+    private var sessionManager: SPTSessionManager?
+    private var appRemote: SPTAppRemote?
+    private var accessToken: String?
     
-    private init() {
-        #if DEBUG
-        mockConnection = true
-        #endif
+    private override init() {
+        super.init()
+        setupSpotify()
+    }
+    
+    private func setupSpotify() {
+        let configuration = SPTConfiguration(
+            clientID: Self.clientID,
+            redirectURL: URL(string: Self.redirectURI)!
+        )
+        configuration.playURI = ""
+        
+        sessionManager = SPTSessionManager(configuration: configuration, delegate: self)
+        
+        appRemote = SPTAppRemote(configuration: configuration, logLevel: .debug)
+        appRemote?.delegate = self
     }
     
     func connect() async throws {
         currentError = nil
-        
-        if mockConnection {
-            try await Task.sleep(nanoseconds: 500_000_000)
-            isConnected = true
-            isPremium = true
-            return
-        }
         
         guard isSpotifyInstalled() else {
             currentError = .notInstalled
@@ -98,19 +106,13 @@ final class SpotifyControl: ObservableObject, SpotifyControlProtocol {
         
         connectionAttempts += 1
         
-        do {
+        // If we already have an access token, try to connect the app remote
+        if let token = accessToken {
+            appRemote?.connectionParameters.accessToken = token
+            appRemote?.connect()
+        } else {
+            // Need to authenticate first
             try await performConnection()
-            isConnected = true
-            isPremium = await checkPremiumStatus()
-            connectionAttempts = 0
-        } catch {
-            isConnected = false
-            if connectionAttempts >= maxConnectionAttempts {
-                currentError = .connectionFailed
-                connectionAttempts = 0
-                throw SpotifyError.connectionFailed
-            }
-            throw error
         }
     }
     
@@ -127,11 +129,6 @@ final class SpotifyControl: ObservableObject, SpotifyControlProtocol {
         
         currentError = nil
         
-        if mockConnection {
-            isPlaying = true
-            return
-        }
-        
         switch mode {
         case .noMusic:
             // Do nothing for no music mode
@@ -141,12 +138,6 @@ final class SpotifyControl: ObservableObject, SpotifyControlProtocol {
             try await resumeCurrentPlayback()
             
         case .usePlaylist(let uri):
-            guard isPremium else {
-                currentError = .premiumRequired
-                try await resumeCurrentPlayback()
-                return
-            }
-            
             guard isValidPlaylistURI(uri) else {
                 currentError = .invalidPlaylistURI
                 throw SpotifyError.invalidPlaylistURI
@@ -161,11 +152,6 @@ final class SpotifyControl: ObservableObject, SpotifyControlProtocol {
     func pause() async throws {
         guard isConnected else { return }
         
-        if mockConnection {
-            isPlaying = false
-            return
-        }
-        
         try await performPause()
         isPlaying = false
     }
@@ -173,11 +159,6 @@ final class SpotifyControl: ObservableObject, SpotifyControlProtocol {
     func resume() async throws {
         if !isConnected {
             try await connect()
-        }
-        
-        if mockConnection {
-            isPlaying = true
-            return
         }
         
         try await performResume()
@@ -197,36 +178,133 @@ final class SpotifyControl: ObservableObject, SpotifyControlProtocol {
     }
     
     private func performConnection() async throws {
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-    }
-    
-    private func checkPremiumStatus() async -> Bool {
-        try? await Task.sleep(nanoseconds: 500_000_000)
-        return true
+        guard let sessionManager = sessionManager else { return }
+        
+        let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .userReadPlaybackState, .userModifyPlaybackState]
+        
+        if #available(iOS 11, *) {
+            // This will trigger the OAuth flow
+            sessionManager.initiateSession(with: scope, options: .clientOnly, campaign: nil)
+        }
     }
     
     private func resumeCurrentPlayback() async throws {
-        try await Task.sleep(nanoseconds: 200_000_000)
+        appRemote?.playerAPI?.resume { _, error in
+            if let error = error {
+                print("Failed to resume playback: \(error)")
+            }
+        }
     }
     
     private func playPlaylist(uri: String) async throws {
-        try await Task.sleep(nanoseconds: 300_000_000)
+        appRemote?.playerAPI?.play(uri) { _, error in
+            if let error = error {
+                print("Failed to play playlist: \(error)")
+            }
+        }
     }
     
     private func performPause() async throws {
-        try await Task.sleep(nanoseconds: 100_000_000)
+        appRemote?.playerAPI?.pause { _, error in
+            if let error = error {
+                print("Failed to pause: \(error)")
+            }
+        }
     }
     
     private func performResume() async throws {
-        try await Task.sleep(nanoseconds: 100_000_000)
+        appRemote?.playerAPI?.resume { _, error in
+            if let error = error {
+                print("Failed to resume: \(error)")
+            }
+        }
     }
 }
 
+// MARK: - URL Handling
 extension SpotifyControl {
     func handleOpenURL(_ url: URL) -> Bool {
         guard url.scheme == "grappletimer" else { return false }
         
+        // Let the session manager handle the URL
+        sessionManager?.application(UIApplication.shared, open: url, options: [:])
+        
         return true
+    }
+}
+
+// MARK: - SPTSessionManagerDelegate
+extension SpotifyControl {
+    nonisolated func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
+        Task { @MainActor in
+            self.accessToken = session.accessToken
+            self.appRemote?.connectionParameters.accessToken = session.accessToken
+            self.appRemote?.connect()
+        }
+    }
+    
+    nonisolated func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
+        Task { @MainActor in
+            print("Failed to initiate session: \(error)")
+            self.currentError = .connectionFailed
+        }
+    }
+    
+    nonisolated func sessionManager(manager: SPTSessionManager, didRenew session: SPTSession) {
+        Task { @MainActor in
+            self.accessToken = session.accessToken
+        }
+    }
+}
+
+// MARK: - SPTAppRemoteDelegate
+extension SpotifyControl {
+    nonisolated func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
+        Task { @MainActor in
+            self.isConnected = true
+            self.connectionAttempts = 0
+            
+            // Subscribe to player state
+            appRemote.playerAPI?.delegate = self
+            appRemote.playerAPI?.subscribe(toPlayerState: { (result, error) in
+                if let error = error {
+                    print("Failed to subscribe to player state: \(error)")
+                }
+            })
+        }
+    }
+    
+    nonisolated func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
+        Task { @MainActor in
+            print("Failed to connect: \(error?.localizedDescription ?? "Unknown error")")
+            self.isConnected = false
+            
+            if self.connectionAttempts >= self.maxConnectionAttempts {
+                self.currentError = .connectionFailed
+                self.connectionAttempts = 0
+            }
+        }
+    }
+    
+    nonisolated func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
+        Task { @MainActor in
+            print("Disconnected: \(error?.localizedDescription ?? "User disconnected")")
+            self.isConnected = false
+            self.isPlaying = false
+        }
+    }
+}
+
+// MARK: - SPTAppRemotePlayerStateDelegate
+extension SpotifyControl {
+    nonisolated func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
+        Task { @MainActor in
+            self.isPlaying = !playerState.isPaused
+            
+            // Check if premium based on restrictions
+            let restrictions = playerState.playbackRestrictions
+            self.isPremium = restrictions.canSkipNext && restrictions.canSkipPrevious
+        }
     }
 }
 
