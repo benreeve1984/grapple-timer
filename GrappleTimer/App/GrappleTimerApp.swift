@@ -17,7 +17,7 @@ struct GrappleTimerApp: App {
                 .onOpenURL { url in
                     appCoordinator.handleURL(url)
                 }
-                .onChange(of: scenePhase) { newPhase in
+                .onChange(of: scenePhase) { oldPhase, newPhase in
                     handleScenePhaseChange(newPhase)
                 }
         }

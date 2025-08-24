@@ -155,11 +155,22 @@ final class AudioCue: ObservableObject {
     }
     
     func endSession() {
+        // Stop haptics first
+        hapticEngine?.stop()
+        
+        // Only deactivate audio session if we're not playing music
+        // This prevents the session deactivation error when music is playing
         do {
-            try audioSession?.setActive(false, options: .notifyOthersOnDeactivation)
-            hapticEngine?.stop()
+            // Check if we need to keep the session active for music
+            let spotifyPlaying = SpotifyControl.shared.isPlaying
+            if !spotifyPlaying {
+                try audioSession?.setActive(false, options: .notifyOthersOnDeactivation)
+            }
         } catch {
-            print("Failed to end audio/haptic session: \(error)")
+            // This error is not critical, just log it
+            if (error as NSError).code != 560030580 { // Ignore "Session deactivation failed"
+                print("Failed to end audio session: \(error)")
+            }
         }
     }
 }

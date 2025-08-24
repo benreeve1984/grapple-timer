@@ -78,6 +78,7 @@ final class SpotifyControl: NSObject, ObservableObject, SpotifyControlProtocol, 
     private var appRemote: SPTAppRemote?
     private var accessToken: String?
     private var wasConnectedBeforeBackground = false
+    private var isReconnecting = false
     
     private override init() {
         super.init()
@@ -127,8 +128,9 @@ final class SpotifyControl: NSObject, ObservableObject, SpotifyControlProtocol, 
     // MARK: - Lifecycle Management
     func handleAppBecameActive() async {
         // If we were connected before and lost connection, try to reconnect
-        if wasConnectedBeforeBackground && !isConnected && accessToken != nil {
+        if wasConnectedBeforeBackground && !isConnected && !isReconnecting && accessToken != nil {
             print("App became active - attempting to reconnect to Spotify")
+            isReconnecting = true
             // Try to reconnect the app remote
             if let token = accessToken {
                 appRemote?.connectionParameters.accessToken = token
@@ -287,6 +289,7 @@ extension SpotifyControl {
         Task { @MainActor in
             self.isConnected = true
             self.connectionAttempts = 0
+            self.isReconnecting = false
             
             // Subscribe to player state
             appRemote.playerAPI?.delegate = self
@@ -300,10 +303,10 @@ extension SpotifyControl {
             // Music should only be controlled during timer sessions
             // If music is playing and we're in no music mode, pause it
             appRemote.playerAPI?.getPlayerState { playerState, error in
-                Task { @MainActor in
-                    if let state = playerState as? SPTAppRemotePlayerState, !state.isPaused {
-                        // Music is playing, pause it since we just connected
-                        appRemote.playerAPI?.pause(nil)
+                if let state = playerState as? SPTAppRemotePlayerState, !state.isPaused {
+                    // Music is playing, pause it since we just connected
+                    Task { @MainActor in
+                        self.appRemote?.playerAPI?.pause(nil)
                     }
                 }
             }
@@ -314,6 +317,7 @@ extension SpotifyControl {
         Task { @MainActor in
             print("Failed to connect: \(error?.localizedDescription ?? "Unknown error")")
             self.isConnected = false
+            self.isReconnecting = false
             
             if self.connectionAttempts >= self.maxConnectionAttempts {
                 self.currentError = .connectionFailed
