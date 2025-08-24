@@ -317,6 +317,10 @@ struct HomeView: View {
             
         case .starting:
             audioCue.playStartCountdown()
+            // Pause music during countdown
+            if configStore.settings.musicMode != .noMusic {
+                try? await spotifyControl.pause()
+            }
             
         default:
             break

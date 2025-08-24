@@ -271,6 +271,9 @@ extension SpotifyControl {
                     print("Failed to subscribe to player state: \(error)")
                 }
             })
+            
+            // Don't auto-play or change playback state on connection
+            // Music should only be controlled during timer sessions
         }
     }
     

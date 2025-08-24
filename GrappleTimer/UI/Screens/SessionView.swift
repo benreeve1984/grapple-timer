@@ -322,6 +322,13 @@ struct SessionView: View {
         UIApplication.shared.isIdleTimerDisabled = false
         AudioCue.shared.endSession()
         
+        // Stop music if it's playing
+        if configStore.settings.musicMode != .noMusic {
+            Task {
+                try? await SpotifyControl.shared.pause()
+            }
+        }
+        
         Task {
             await NotificationScheduler.shared.clearAllNotifications()
         }
