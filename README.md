@@ -118,8 +118,8 @@ To test both behaviors:
 - **Keep Screen Awake**: Prevents auto-lock during sessions
 - **Show Tenths**: Display fractional seconds when under 1 minute
 - **Start Delay**: Optional 3-second countdown before first round
-- **Music Mode**: Defaults to curated BJJ Spotify playlist
-  - Playlist: https://open.spotify.com/playlist/2P2oppRNcZgcyyhW2dhS9k
+- **Music Mode**: Defaults to "No Music", optional Spotify integration
+  - Default playlist when enabled: https://open.spotify.com/playlist/4f9dMrkjEdxAWD4amTEVhm
 
 ## Architecture
 

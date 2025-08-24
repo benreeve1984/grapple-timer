@@ -77,6 +77,7 @@ final class SpotifyControl: NSObject, ObservableObject, SpotifyControlProtocol, 
     private var sessionManager: SPTSessionManager?
     private var appRemote: SPTAppRemote?
     private var accessToken: String?
+    private var wasConnectedBeforeBackground = false
     
     private override init() {
         super.init()
@@ -117,9 +118,32 @@ final class SpotifyControl: NSObject, ObservableObject, SpotifyControlProtocol, 
     }
     
     func disconnect() {
+        appRemote?.disconnect()
         isConnected = false
         isPlaying = false
         currentError = nil
+    }
+    
+    // MARK: - Lifecycle Management
+    func handleAppBecameActive() async {
+        // If we were connected before and lost connection, try to reconnect
+        if wasConnectedBeforeBackground && !isConnected && accessToken != nil {
+            print("App became active - attempting to reconnect to Spotify")
+            // Try to reconnect the app remote
+            if let token = accessToken {
+                appRemote?.connectionParameters.accessToken = token
+                appRemote?.connect()
+            }
+        } else if isConnected {
+            print("App became active - Spotify still connected")
+        }
+    }
+    
+    func handleAppWentToBackground() async {
+        // Remember if we were connected
+        wasConnectedBeforeBackground = isConnected
+        // Don't disconnect - the connection should persist
+        print("App went to background - maintaining Spotify connection (connected: \(isConnected))")
     }
     
     func play(mode: MusicMode) async throws {
@@ -274,6 +298,13 @@ extension SpotifyControl {
             
             // Don't auto-play or change playback state on connection
             // Music should only be controlled during timer sessions
+            // If music is playing and we're in no music mode, pause it
+            appRemote.playerAPI?.getPlayerState { playerState, error in
+                if let state = playerState as? SPTAppRemotePlayerState, !state.isPaused {
+                    // Music is playing, pause it since we just connected
+                    appRemote.playerAPI?.pause(nil)
+                }
+            }
         }
     }
     
@@ -294,6 +325,17 @@ extension SpotifyControl {
             print("Disconnected: \(error?.localizedDescription ?? "User disconnected")")
             self.isConnected = false
             self.isPlaying = false
+            
+            // If we have a token and weren't intentionally disconnected, try to reconnect
+            if self.accessToken != nil && error != nil {
+                print("Attempting automatic reconnection...")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    if let token = self.accessToken {
+                        self.appRemote?.connectionParameters.accessToken = token
+                        self.appRemote?.connect()
+                    }
+                }
+            }
         }
     }
 }
