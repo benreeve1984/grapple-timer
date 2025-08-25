@@ -285,13 +285,12 @@ struct HomeView: View {
     }
     
     private func openSpotifyPlaylist() {
-        // Try to open a BJJ playlist in Spotify
-        // You can replace this URI with your preferred BJJ playlist
-        let playlistURI = "spotify:playlist:37i9dQZF1DXdxcBWuJkbcy" // Example: Workout playlist
+        // Open the BJJ playlist in Spotify
+        let playlistURI = "spotify:playlist:4f9dMrkjEdxAWD4amTEVhm" // BJJ playlist
         
         if let url = URL(string: playlistURI), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
-        } else if let webURL = URL(string: "https://open.spotify.com/playlist/37i9dQZF1DXdxcBWuJkbcy") {
+        } else if let webURL = URL(string: "https://open.spotify.com/playlist/4f9dMrkjEdxAWD4amTEVhm?si=caea09ce81e54dfd") {
             // Fallback to web URL if Spotify app is not installed
             UIApplication.shared.open(webURL)
         }
