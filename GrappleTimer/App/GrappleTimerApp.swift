@@ -26,18 +26,14 @@ struct GrappleTimerApp: App {
     private func handleScenePhaseChange(_ phase: ScenePhase) {
         switch phase {
         case .active:
-            // App became active - try to reconnect Spotify if it was connected
-            Task {
-                await SpotifyControl.shared.handleAppBecameActive()
-            }
+            // App became active
+            break
         case .inactive:
-            // App is transitioning - don't disconnect yet
+            // App is transitioning
             break
         case .background:
-            // App went to background - maintain connection if possible
-            Task {
-                await SpotifyControl.shared.handleAppWentToBackground()
-            }
+            // App went to background
+            break
         @unknown default:
             break
         }

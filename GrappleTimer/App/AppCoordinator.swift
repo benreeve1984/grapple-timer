@@ -9,7 +9,6 @@ final class AppCoordinator: ObservableObject {
     @Published var timerEngine = TimerEngine()
     
     private let configStore = ConfigStore.shared
-    private let spotifyControl = SpotifyControl.shared
     private let audioCue = AudioCue.shared
     private let notificationScheduler = NotificationScheduler.shared
     
@@ -22,9 +21,7 @@ final class AppCoordinator: ObservableObject {
     
     func handleURL(_ url: URL) {
         if url.scheme == "grappletimer" {
-            if url.host == "spotify-callback" {
-                _ = spotifyControl.handleOpenURL(url)
-            } else if url.host == "start-timer" {
+            if url.host == "start-timer" {
                 handleStartTimerDeepLink(url)
             }
         }
@@ -109,34 +106,19 @@ final class AppCoordinator: ObservableObject {
         switch newPhase {
         case .work:
             audioCue.playBell()  // Bell at start of round
-            switch configStore.settings.musicMode {
-            case .noMusic:
-                break  // Do nothing for music
-            case .useCurrentPlayback:
-                try? await spotifyControl.resume()
-            case .usePlaylist(let uri):
-                try? await spotifyControl.play(mode: .usePlaylist(uri: uri))
-            }
+            // Music continues playing in the background
             
         case .rest:
             audioCue.playHorn()  // Horn at end of round
-            if configStore.settings.musicMode != .noMusic {
-                try? await spotifyControl.pause()
-            }
+            // Music continues playing in the background
             
         case .done:
             audioCue.playHorn()
-            if configStore.settings.musicMode != .noMusic {
-                try? await spotifyControl.pause()
-            }
             showingSession = false
             
         case .starting:
             audioCue.playStartCountdown()
-            // Pause music during countdown
-            if configStore.settings.musicMode != .noMusic {
-                try? await spotifyControl.pause()
-            }
+            // Music continues playing in the background
             
         default:
             break

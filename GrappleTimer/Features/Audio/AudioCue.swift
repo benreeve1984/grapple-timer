@@ -26,7 +26,8 @@ final class AudioCue: ObservableObject {
         audioSession = AVAudioSession.sharedInstance()
         
         do {
-            try audioSession?.setCategory(.playback, mode: .default, options: [.mixWithOthers])
+            // Use duckOthers to lower background music volume when playing our sounds
+            try audioSession?.setCategory(.playback, mode: .default, options: [.mixWithOthers, .duckOthers])
             try audioSession?.setActive(true)
         } catch {
             print("Failed to setup audio session: \(error)")
@@ -158,20 +159,8 @@ final class AudioCue: ObservableObject {
         // Stop haptics first
         hapticEngine?.stop()
         
-        // Only deactivate audio session if we're not playing music
-        // This prevents the session deactivation error when music is playing
-        do {
-            // Check if we need to keep the session active for music
-            let spotifyPlaying = SpotifyControl.shared.isPlaying
-            if !spotifyPlaying {
-                try audioSession?.setActive(false, options: .notifyOthersOnDeactivation)
-            }
-        } catch {
-            // This error is not critical, just log it
-            if (error as NSError).code != 560030580 { // Ignore "Session deactivation failed"
-                print("Failed to end audio session: \(error)")
-            }
-        }
+        // Keep audio session active to not interrupt background music
+        // We're using mixWithOthers so we don't need to deactivate
     }
 }
 

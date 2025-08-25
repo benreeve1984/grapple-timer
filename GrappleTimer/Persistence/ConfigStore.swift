@@ -53,8 +53,6 @@ struct AppSettings: Codable {
     var keepScreenAwake: Bool = true
     var showTenths: Bool = false
     var enableStartDelay: Bool = false
-    var musicMode: MusicMode = .noMusic  // Default to no music
-    var playlistURI: String = "spotify:playlist:4f9dMrkjEdxAWD4amTEVhm"
     var lastUsedConfiguration: TimerConfiguration = .default
 }
 

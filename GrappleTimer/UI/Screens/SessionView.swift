@@ -323,11 +323,7 @@ struct SessionView: View {
         AudioCue.shared.endSession()
         
         // Stop music if it's playing
-        if configStore.settings.musicMode != .noMusic {
-            Task {
-                try? await SpotifyControl.shared.pause()
-            }
-        }
+        // Music continues playing in the background
         
         Task {
             await NotificationScheduler.shared.clearAllNotifications()

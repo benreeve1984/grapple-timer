@@ -4,7 +4,6 @@ import UIKit
 struct HomeView: View {
     @StateObject private var timerEngine = TimerEngine()
     @StateObject private var configStore = ConfigStore.shared
-    @StateObject private var spotifyControl = SpotifyControl.shared
     @StateObject private var audioCue = AudioCue.shared
     
     @State private var selectedPreset: TimerPreset?
@@ -205,29 +204,24 @@ struct HomeView: View {
     
     private var musicSection: some View {
         VStack(spacing: 12) {
-            HStack {
-                Image(systemName: spotifyControl.isConnected ? "music.note" : "music.note")
-                    .foregroundColor(spotifyControl.isConnected ? .green : .secondary)
-                
-                Text(spotifyControl.isConnected ? "Spotify Connected" : "Spotify Not Connected")
-                    .font(.footnote)
-                
-                Spacer()
-                
-                if !spotifyControl.isConnected {
-                    Button("Connect") {
-                        Task {
-                            try? await spotifyControl.connect()
-                        }
-                    }
-                    .font(.footnote)
+            Button(action: openSpotifyPlaylist) {
+                HStack {
+                    Image(systemName: "music.note")
+                    Text("Open BJJ Playlist on Spotify")
+                        .fontWeight(.medium)
                 }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.green.opacity(0.1))
+                .foregroundColor(.green)
+                .cornerRadius(12)
             }
             .padding(.horizontal)
             
-            if let error = spotifyControl.currentError {
-                ErrorBanner(message: error.localizedDescription, type: .info)
-            }
+            Text("Music will play in the background and duck for timer sounds")
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .padding(.horizontal)
         }
     }
     
@@ -290,37 +284,36 @@ struct HomeView: View {
         }
     }
     
+    private func openSpotifyPlaylist() {
+        // Try to open a BJJ playlist in Spotify
+        // You can replace this URI with your preferred BJJ playlist
+        let playlistURI = "spotify:playlist:37i9dQZF1DXdxcBWuJkbcy" // Example: Workout playlist
+        
+        if let url = URL(string: playlistURI), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        } else if let webURL = URL(string: "https://open.spotify.com/playlist/37i9dQZF1DXdxcBWuJkbcy") {
+            // Fallback to web URL if Spotify app is not installed
+            UIApplication.shared.open(webURL)
+        }
+    }
+    
     private func handlePhaseChange(from oldPhase: Phase, to newPhase: Phase) async {
         switch newPhase {
         case .work:
             audioCue.playBell()  // Bell at start of round
-            switch configStore.settings.musicMode {
-            case .noMusic:
-                break  // Do nothing for music
-            case .useCurrentPlayback:
-                try? await spotifyControl.resume()
-            case .usePlaylist(let uri):
-                try? await spotifyControl.play(mode: .usePlaylist(uri: uri))
-            }
+            // Music continues playing in the background
             
         case .rest:
             audioCue.playHorn()  // Horn at end of round
-            if configStore.settings.musicMode != .noMusic {
-                try? await spotifyControl.pause()
-            }
+            // Music continues playing in the background
             
         case .done:
             audioCue.playHorn()
-            if configStore.settings.musicMode != .noMusic {
-                try? await spotifyControl.pause()
-            }
+            // Music continues playing in the background
             
         case .starting:
             audioCue.playStartCountdown()
-            // Pause music during countdown
-            if configStore.settings.musicMode != .noMusic {
-                try? await spotifyControl.pause()
-            }
+            // Music continues playing in the background
             
         default:
             break
@@ -345,17 +338,9 @@ struct SettingsView: View {
                 }
                 
                 Section("Music") {
-                    Picker("Music Mode", selection: $configStore.settings.musicMode) {
-                        Text("No Music").tag(MusicMode.noMusic)
-                        Text("Current Playback").tag(MusicMode.useCurrentPlayback)
-                        Text("Custom Playlist").tag(MusicMode.usePlaylist(uri: configStore.settings.playlistURI))
-                    }
-                    
-                    if case .usePlaylist = configStore.settings.musicMode {
-                        TextField("Playlist URI", text: $configStore.settings.playlistURI)
-                            .font(.footnote)
-                            .textFieldStyle(.roundedBorder)
-                    }
+                    Text("Background music will automatically duck when timer sounds play")
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
                 }
                 
                 Section {

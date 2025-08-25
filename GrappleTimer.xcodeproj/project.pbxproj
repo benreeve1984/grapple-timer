@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		02967A629561BDE891A14BE2 /* Bell.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3676706FFB29FDE0FF809D07 /* Bell.mp3 */; };
-		1E784D3B31134E8A4B27E2B0 /* SpotifyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEA176EEE7369AF560D262 /* SpotifyControl.swift */; };
 		22467614045647C5EC791759 /* BigTimerDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C114225083DF0F37B6718FAF /* BigTimerDisplay.swift */; };
 		2A2EA5086527FDA8D9509E64 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D58394B9447698236732F4 /* TimerEngine.swift */; };
 		3BEADF03076831C9E1C48905 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE151690AD3C0FB882C95CF /* HomeView.swift */; };
@@ -21,7 +20,6 @@
 		998208C888F98E5978F45AFE /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B6F4E66EF34BFE8A6D7605 /* AppCoordinator.swift */; };
 		B1D854AFD4661465FBF51F66 /* Horn.wav in Resources */ = {isa = PBXBuildFile; fileRef = DE139FB04385A99B91CC5738 /* Horn.wav */; };
 		B4F8F073112F9E6FE8599FAB /* SessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53404CDFF511FDAFDC4478B8 /* SessionView.swift */; };
-		C33E8AB59AB6F5D39EADC552 /* SpotifyiOS in Frameworks */ = {isa = PBXBuildFile; productRef = F7D8F305121B49B7F09440F3 /* SpotifyiOS */; };
 		DC4BEE64F99351B4244A1963 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2B90C1501D166B88FDD7E5F /* Assets.xcassets */; };
 		ECC848F6AC30AB7EF1431F3E /* StartBJJTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7FF54AC2B0C882A1CDAFD4 /* StartBJJTimer.swift */; };
 		ED2C63A854B02E7114A7729A /* GrappleTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5D8ABD59ED2A1B3EED4921 /* GrappleTimerApp.swift */; };
@@ -48,30 +46,18 @@
 		53404CDFF511FDAFDC4478B8 /* SessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionView.swift; sourceTree = "<group>"; };
 		6B747ED5F3819F629651DEE3 /* TimerEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineTests.swift; sourceTree = "<group>"; };
 		7366E77871E9613EFFFD2F12 /* ControlRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlRow.swift; sourceTree = "<group>"; };
-		84DEA176EEE7369AF560D262 /* SpotifyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyControl.swift; sourceTree = "<group>"; };
 		8AE151690AD3C0FB882C95CF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		A64D6B113CA0805D7AA0EECB /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		B8D58394B9447698236732F4 /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
 		C114225083DF0F37B6718FAF /* BigTimerDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigTimerDisplay.swift; sourceTree = "<group>"; };
 		C2B90C1501D166B88FDD7E5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C6B6F4E66EF34BFE8A6D7605 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		DA29B2EFE312D59526D53864 /* GrappleTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrappleTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA29B2EFE312D59526D53864 /* GrappleTimer.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GrappleTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE139FB04385A99B91CC5738 /* Horn.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Horn.wav; sourceTree = "<group>"; };
 		E2C53452A2E21B3AE280E98C /* GrappleTimerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GrappleTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE2697C0F1596CC25EE315AF /* Bell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Bell.wav; sourceTree = "<group>"; };
 		FF7FF54AC2B0C882A1CDAFD4 /* StartBJJTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartBJJTimer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		3E911D5F87A40C8DCA49CBCF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C33E8AB59AB6F5D39EADC552 /* SpotifyiOS in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		02059C2AF1F67F6813D77C20 /* Audio */ = {
@@ -82,21 +68,12 @@
 			path = Audio;
 			sourceTree = "<group>";
 		};
-		0E833DADC0F29B0362CB3717 /* Playback */ = {
-			isa = PBXGroup;
-			children = (
-				84DEA176EEE7369AF560D262 /* SpotifyControl.swift */,
-			);
-			path = Playback;
-			sourceTree = "<group>";
-		};
 		10B6460922B850B8CE3DDE4D /* Features */ = {
 			isa = PBXGroup;
 			children = (
 				02059C2AF1F67F6813D77C20 /* Audio */,
 				578D86D1DF025DB0062C9727 /* Intents */,
 				79675BA0889EA77F23F0218F /* Notifications */,
-				0E833DADC0F29B0362CB3717 /* Playback */,
 				DF4253720AC86376D15862FD /* Timer */,
 			);
 			path = Features;
@@ -248,7 +225,6 @@
 			buildPhases = (
 				119272FA8BA5E0C5ACE190FE /* Sources */,
 				B09E1E71D9F5BFA5D56864E0 /* Resources */,
-				3E911D5F87A40C8DCA49CBCF /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -256,7 +232,6 @@
 			);
 			name = GrappleTimer;
 			packageProductDependencies = (
-				F7D8F305121B49B7F09440F3 /* SpotifyiOS */,
 			);
 			productName = GrappleTimer;
 			productReference = DA29B2EFE312D59526D53864 /* GrappleTimer.app */;
@@ -276,6 +251,7 @@
 						ProvisioningStyle = Automatic;
 					};
 					E0542182DFA037C739886DBF = {
+						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -290,9 +266,7 @@
 			);
 			mainGroup = 98DC0E7B4219EAB9F9F60B87;
 			minimizedProjectReferenceProxies = 1;
-			packageReferences = (
-				5D68F62EDBE5D3D3A83A2D8B /* XCRemoteSwiftPackageReference "ios-sdk" */,
-			);
+			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -331,7 +305,6 @@
 				3BEADF03076831C9E1C48905 /* HomeView.swift in Sources */,
 				FF8EB72F4DEE7CA6E8C0C0F1 /* NotificationScheduler.swift in Sources */,
 				B4F8F073112F9E6FE8599FAB /* SessionView.swift in Sources */,
-				1E784D3B31134E8A4B27E2B0 /* SpotifyControl.swift in Sources */,
 				ECC848F6AC30AB7EF1431F3E /* StartBJJTimer.swift in Sources */,
 				2A2EA5086527FDA8D9509E64 /* TimerEngine.swift in Sources */,
 			);
@@ -415,11 +388,17 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Grapple Timer";
-				INFOPLIST_KEY_LSApplicationQueriesSchemes = spotify;
-				INFOPLIST_KEY_NSUserActivityTypes = StartBJJTimerIntent;
+				INFOPLIST_KEY_LSApplicationQueriesSchemes = (
+					spotify,
+				);
+				INFOPLIST_KEY_NSUserActivityTypes = (
+					StartBJJTimerIntent,
+				);
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UIBackgroundModes = audio;
+				INFOPLIST_KEY_UIBackgroundModes = (
+					audio,
+				);
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				"INFOPLIST_KEY_UISupportedInterfaceOrientations~ipad" = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -520,11 +499,17 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Grapple Timer";
-				INFOPLIST_KEY_LSApplicationQueriesSchemes = spotify;
-				INFOPLIST_KEY_NSUserActivityTypes = StartBJJTimerIntent;
+				INFOPLIST_KEY_LSApplicationQueriesSchemes = (
+					spotify,
+				);
+				INFOPLIST_KEY_NSUserActivityTypes = (
+					StartBJJTimerIntent,
+				);
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UIBackgroundModes = audio;
+				INFOPLIST_KEY_UIBackgroundModes = (
+					audio,
+				);
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				"INFOPLIST_KEY_UISupportedInterfaceOrientations~ipad" = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -546,7 +531,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 5CVYV4ENJX;
 				INFOPLIST_FILE = GrappleTimer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -565,7 +549,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 5CVYV4ENJX;
 				INFOPLIST_FILE = GrappleTimer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -610,25 +593,6 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		5D68F62EDBE5D3D3A83A2D8B /* XCRemoteSwiftPackageReference "ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/spotify/ios-sdk";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		F7D8F305121B49B7F09440F3 /* SpotifyiOS */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5D68F62EDBE5D3D3A83A2D8B /* XCRemoteSwiftPackageReference "ios-sdk" */;
-			productName = SpotifyiOS;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B5E220E969C127B39787DFE2 /* Project object */;
 }

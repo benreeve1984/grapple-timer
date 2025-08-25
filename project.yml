@@ -7,11 +7,6 @@ options:
   developmentLanguage: en
   xcodeVersion: "15.0"
 
-packages:
-  SpotifyiOS:
-    url: https://github.com/spotify/ios-sdk
-    branch: master
-  
 settings:
   base:
     MARKETING_VERSION: 1.0.0
@@ -56,9 +51,7 @@ targets:
         TARGETED_DEVICE_FAMILY: "1,2"
         SUPPORTS_MACCATALYST: NO
         SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: YES
-    dependencies:
-      - package: SpotifyiOS
-        product: SpotifyiOS
+    dependencies: []
     preBuildScripts: []
     postBuildScripts: []
 

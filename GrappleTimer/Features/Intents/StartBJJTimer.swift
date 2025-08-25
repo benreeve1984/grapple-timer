@@ -90,11 +90,7 @@ struct StartBJJTimer: AppIntent {
             clapperSeconds: clapperSeconds
         )
         
-        if playlistSelection == .usePlaylistURI, let uri = playlistURI {
-            configStore.settings.musicMode = .usePlaylist(uri: uri)
-        } else {
-            configStore.settings.musicMode = .useCurrentPlayback
-        }
+        // Music playback is now handled externally
         
         let configuration = TimerConfiguration(
             roundDuration: TimeInterval(roundSeconds),
