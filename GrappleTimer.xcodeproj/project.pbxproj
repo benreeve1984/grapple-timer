@@ -521,6 +521,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 5CVYV4ENJX;
 				INFOPLIST_FILE = GrappleTimer/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Grapple Timer";
@@ -548,6 +549,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 5CVYV4ENJX;
 				INFOPLIST_FILE = GrappleTimer/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Grapple Timer";

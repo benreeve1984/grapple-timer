@@ -64,6 +64,7 @@ struct HomeView: View {
                 SessionView(timerEngine: timerEngine)
             }
         }
+        .navigationViewStyle(.stack)
         .onAppear {
             loadConfiguration()
             setupTimerCallbacks()
@@ -359,5 +360,6 @@ struct SettingsView: View {
                 }
             }
         }
+        .navigationViewStyle(.stack)
     }
 }
