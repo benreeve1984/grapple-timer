@@ -187,6 +187,16 @@ final class TimerEngine: ObservableObject {
         clapperTriggered.removeAll()
         isPaused = false
         
+        // Set initial phase immediately
+        if let currentSession = session {
+            let newPhase = currentSession.currentPhase(at: Date())
+            if newPhase != phase {
+                let oldPhase = phase
+                phase = newPhase
+                onPhaseChange?(oldPhase, newPhase)
+            }
+        }
+        
         startTimer()
     }
     
@@ -279,7 +289,7 @@ final class TimerEngine: ObservableObject {
     func formatTimeWithTenths(_ time: TimeInterval) -> String {
         let minutes = Int(time) / 60
         let seconds = Int(time) % 60
-        let tenths = Int((time.truncatingRemainder(dividingBy: 1)) * 10)
+        let tenths = Int(round(time.truncatingRemainder(dividingBy: 1) * 10)) % 10
         return String(format: "%d:%02d.%d", minutes, seconds, tenths)
     }
 }
