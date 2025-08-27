@@ -63,6 +63,15 @@ struct SessionView: View {
         .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
             orientation = UIDevice.current.orientation
         }
+        .onChange(of: timerEngine.phase) { oldPhase, newPhase in
+            if newPhase == .done {
+                // Auto-dismiss after a short delay when timer completes
+                Task {
+                    try? await Task.sleep(nanoseconds: 2_000_000_000) // 2 second delay
+                    dismiss()
+                }
+            }
+        }
     }
     
     @ViewBuilder
